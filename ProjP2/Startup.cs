@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MvcMovie.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProjP2
 {
@@ -25,6 +27,8 @@ namespace ProjP2
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            services.AddDbContext<SeuZeContext>(options =>
+                  options.UseSqlite("Data Source=MvcMovie.db"));
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -51,7 +55,7 @@ namespace ProjP2
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Pedido}/{action=Index}/{id?}");
             });
         }
     }
